@@ -84,12 +84,9 @@ private:
 	std::string n;
 	std::string e;
 	std::string lastSelectedObject;
-	void AddNode();
-	void AddEdge();
-	void test();
+
 	std::ifstream in;
-	void LoadNodes();
-	Pathfinding* path;
+
 	void ShowShadows();
 	void ShowSkybox();
 	void ShowPerformance();

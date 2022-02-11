@@ -5,70 +5,6 @@
 #include "Renderers.h"
 #include <dxgi.h>
 
-void LevelEditor::AddNode()
-{
-	out << "node1\t0.2\t0.4\t0.8\n\n";
-}
-
-void LevelEditor::AddEdge()
-{
-	out << "node1\tnode2";
-}
-
-void LevelEditor::test()
-{
-	auto filePath = FileSystem::ProjectDirectory::path;
-	out.open(filePath + "\\Test.txt");
-	AddNode();
-	AddEdge();
-	out.close();
-	OutputDebugStringA("done");
-}
-
-void LevelEditor::LoadNodes()
-{
-	std::map<std::string, std::shared_ptr<Drawable>> objects = scene.GetDrawables();
-	std::string str;
-
-	for (auto& [name, drawable] : scene.GetDrawables())
-	{
-		std::string x;
-		std::string y;
-		std::string z;
-
-
-		str.insert(0, name, 0, 5);
-		if (str == "Node1")
-		{
-			str = name;
-			x = std::to_string(drawable->GetPosition().x);
-			y = std::to_string(drawable->GetPosition().y);
-			z = std::to_string(drawable->GetPosition().z);
-
-			str += "\t" + x + "\t" + y + "\t" + z + "\n";
-
-
-			nodes.push_back(str);
-		}
-		str.clear();
-	}
-
-	//this->e.append(str);
-	str.clear();
-	for (int i = 0; i < nodes.size(); i++)
-	{
-		str += nodes[i];
-	}
-
-
-	auto filePath = FileSystem::ProjectDirectory::path;
-	out.open(filePath + "\\SaveData\\NodesReplacement.txt");
-	out << str;
-	out.close();
-	OutputDebugStringA("done");
-	std::cout << "done";
-}
-
 void LevelEditor::BindDrawables()
 {
 	for (auto& [name, drawable] : scene.GetDrawables())
@@ -634,39 +570,6 @@ void LevelEditor::Update()
 			lastClick = Time::Get();
 
 		}
-
-
-		if (Event::KeyIsPressed('N'))
-		{
-			auto selected = scene.Get<Drawable>(selectedObject);
-			std::string str = selectedObject + "\t" + std::to_string(selected->GetPosition().x) + "\t" + std::to_string(selected->GetPosition().y) + "\t" + std::to_string(selected->GetPosition().z) + "\n";
-			this->n.append(str);
-			lastClick = Time::Get();
-
-		}
-
-		if (Event::KeyIsPressed('E'))
-		{
-			std::string str = 'E' + "\t" + selectedObject + "\t" + lastSelectedObject + "\n";
-			this->e.append(str);
-			lastClick = Time::Get();
-
-		}
-
-		if (Event::KeyIsPressed('I'))
-		{
-			auto filePath = FileSystem::ProjectDirectory::path;
-			out.open(filePath + "\\Nodes.txt");
-			out << n;
-			out << "\n";
-			if (!e.empty())
-				out << e;
-			out.close();
-			OutputDebugStringA("done");
-			lastClick = Time::Get();
-
-		}
-
 	}
 
 	if (Event::KeyIsPressed(VK_SHIFT))
@@ -1000,8 +903,6 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	gameLoader.Load("Default", scene.GetDrawables());
 	BindDrawables();
 
-	//CALL LOADPATHSTRUCTURE HERE
-	LoadNodes();
 	scene.SetCamera(PI_DIV4, float(clientWidth) / float(clientHeight), 0.1f, 10000.0f, 1.0f, 25.0f, {0, 90, 0});
 	scene.SetDirectionalLight(1000, { 1, 1, 1, 1 }, 4, 4);
 
