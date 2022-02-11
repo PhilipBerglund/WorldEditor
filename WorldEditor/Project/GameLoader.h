@@ -51,11 +51,9 @@ private:
 	};
 
 	void WriteModel(std::shared_ptr<Model> model);
-	void WriteParticleSystem(std::shared_ptr<ParticleSystem> particleSystem);
 	//void SaveBuilding(std::shared_ptr<Building> building);
 
 	std::shared_ptr<Model> ReadModel();
 	std::shared_ptr<BoundingBox> ReadBoxVolume();
 	std::shared_ptr<BoundingSphere> ReadSphereVolume();
-	std::shared_ptr<ParticleSystem> ReadParticleSystem();
 };

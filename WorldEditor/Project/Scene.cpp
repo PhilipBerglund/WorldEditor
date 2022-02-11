@@ -98,52 +98,6 @@ void Scene::AddBoundingVolume(const std::string& name, std::shared_ptr<Drawable>
 	drawables[name]->SetName(name);
 }
 
-void Scene::AddParticleSystem(unsigned int maxParticles, float timeBetweenParticles, float particlesLifetime, float minVelocity, float maxVelocity, float size, Vector2 particleExtents, Vector3 position, EmitterType type)
-{
-	std::string name = "ParticleSystem";
-	UINT numInstances = 0;
-	for (auto& [name, drawable] : drawables)
-		if (name.find("ParticleSystem") != std::string::npos)
-			numInstances++;
-
-	if (numInstances > 0)
-		name += std::to_string(numInstances);
-
-	auto particleSystem = std::make_shared<ParticleSystem>(maxParticles, timeBetweenParticles, particlesLifetime, minVelocity, maxVelocity, size, particleExtents, position, type);
-	drawables.emplace(name, particleSystem);
-}
-
-void Scene::AddParticleSystem(const std::string name, std::shared_ptr<ParticleSystem> particleSystem, Vector3 pos)
-{
-	std::string uniqueName = name;
-	UINT numInstances = 0;
-	for (auto& [name, drawable] : drawables)
-		if (name.find(uniqueName) != std::string::npos)
-			numInstances++;
-
-	if (numInstances > 0)
-		uniqueName += std::to_string(numInstances);
-
-	particleSystem.get()->SetPosition(pos);
-
-	drawables.emplace(uniqueName, particleSystem);
-}
-
-void Scene::AddParticleSystem(const std::string name, std::shared_ptr<ParticleSystem> system)
-{
-	std::string uniqueName = name;
-	UINT numInstances = 0;
-	for (auto& [name, drawable] : drawables)
-		if (name.find(uniqueName) != std::string::npos)
-			numInstances++;
-
-	if (numInstances > 0)
-		uniqueName += std::to_string(numInstances);
-
-
-	drawables.emplace(uniqueName, system);
-}
-
 void Scene::AddPointLight(Vector3 position, float range, Vector3 attenuation, Vector4 color)
 {
 	if (pointLights.size() < MAX_LIGHTS)

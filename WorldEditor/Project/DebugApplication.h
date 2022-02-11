@@ -4,7 +4,7 @@
 #include "Time.h"
 #include "States.h"
 #include "LoadingScreen.h"
-#include "MainMenu.h"
+#include "UI.h"
 #include "Renderers.h"
 
 class DebugApplication
