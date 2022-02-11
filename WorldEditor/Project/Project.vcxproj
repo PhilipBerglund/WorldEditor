@@ -167,7 +167,6 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImGui\include\ImGui\ImGuizmo.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -185,7 +184,6 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="VolumeRenderer.cpp" />
     <ClCompile Include="WaterRenderer.cpp" />
-    <ClCompile Include="Win.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +198,6 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImGui\include\ImGui\ImGuizmo.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="PerformanceRenderer.h" />
     <ClInclude Include="PlaneWithNormals.h" />
@@ -258,7 +255,6 @@
     <ClInclude Include="VolumeRenderer.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="WaterRenderer.h" />
-    <ClInclude Include="Win.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -43,7 +43,6 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImGui\include\ImGui\ImGuizmo.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModelRenderer.cpp" />
@@ -58,13 +57,11 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="VolumeRenderer.cpp" />
     <ClCompile Include="WaterRenderer.cpp" />
-    <ClCompile Include="Win.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="LevelEditor.cpp">
       <Filter>UsefulShit</Filter>
     </ClCompile>
     <ClCompile Include="PlaneWithNormals.cpp" />
-    <ClCompile Include="AnimationStateMachine.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="PerformanceRenderer.cpp" />
     <ClCompile Include="Canvas.cpp" />
@@ -80,7 +77,6 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImGui\include\ImGui\ImGuizmo.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="PlaneWithNormals.h" />
     <ClInclude Include="DebugApplication.h" />
@@ -135,13 +131,11 @@
     <ClInclude Include="VolumeRenderer.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="WaterRenderer.h" />
-    <ClInclude Include="Win.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="LevelEditor.h">
       <Filter>UsefulShit</Filter>
     </ClInclude>
     <ClInclude Include="PlaneWithNormals.h" />
-    <ClInclude Include="AnimationStateMachine.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="PerformanceRenderer.h" />
     <ClInclude Include="Canvas.h" />

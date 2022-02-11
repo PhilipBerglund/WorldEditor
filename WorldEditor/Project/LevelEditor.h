@@ -4,6 +4,7 @@
 #include "ApplicationState.h"
 #include "ImGui.h"
 #include "WaterRenderer.h"
+#include "Terrain.h"
 
 class LevelEditor : public Editor, public ApplicationState
 {
