@@ -21,7 +21,7 @@ private:
 	APPSTATE currentState;
 	ApplicationState* currentGameState;
 
-	const std::wstring title = L"Stort Spelprojekt";
+	const std::wstring title = L"World Editor";
 	bool isFullscreen = false;
 	const UINT width = 1280;
 	const UINT height = 720;
@@ -113,6 +113,10 @@ public:
 
 		MSG msg = {};
 
+		Window::ActivateCursor();
+		InitFullscreen();
+		currentGameState = new LevelEditor(Window::ClientWidth(), Window::ClientHeight(), Window::GetHWND());
+
 		while (currentState != APPSTATE::EXIT)
 		{
 			timer.Start();
@@ -132,42 +136,11 @@ public:
 			if (Event::KeyIsPressed(VK_TAB))
 				Window::ActivateCursor();
 
+
 			currentState = currentGameState->Run();
 
-			switch (currentState)
+			if (currentState == APPSTATE::EXIT)
 			{
-			case APPSTATE::NO_CHANGE:
-				break;
-
-			case APPSTATE::MAIN_MENU:
-				currentGameState->Delete();
-				Window::ActivateCursor();
-				InitWindowed();
-				return 1;
-				break;
-
-			case APPSTATE::GAME:
-				delete currentGameState;
-				Window::DeactivateCursor();
-				return 1;
-				break;
-
-			case APPSTATE::LEVEL:
-				RunLoadingScreen();
-				currentGameState->Delete();
-				Window::ActivateCursor();
-				InitFullscreen();
-				currentGameState = new LevelEditor(Window::ClientWidth(), Window::ClientHeight(), Window::GetHWND());
-				break;
-
-			case APPSTATE::PARTICLE:
-				currentGameState->Delete();
-				Window::ActivateCursor();
-				InitFullscreen();
-				currentGameState = new ParticleEditor(Window::ClientWidth(), Window::ClientHeight());
-				break;
-
-			case APPSTATE::EXIT:
 				currentGameState->Delete();
 				break;
 			}

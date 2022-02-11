@@ -897,7 +897,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.AddSliderIntComponent("RENDER DIVIDE", -2000, 2000, -2000, false);
 		window.AddCheckBoxComponent("FLIP DIVIDE", false);
 		window.AddSeperatorComponent();
-		window.AddButtonComponent("RETURN TO MENU", 120, 30);
+		window.AddButtonComponent("EXIT", 120, 30);
 	}
 
 	{
@@ -1283,8 +1283,8 @@ APPSTATE LevelEditor::Run()
 			loader.Save(sceneName, scene.GetDrawables());
 		}
 
-		if (window.GetValue<ButtonComponent>("RETURN TO MENU"))
-			return APPSTATE::MAIN_MENU;
+		if (window.GetValue<ButtonComponent>("EXIT"))
+			return APPSTATE::EXIT;
 	}
 
 	{
