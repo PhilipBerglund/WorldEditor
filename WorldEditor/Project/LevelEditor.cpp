@@ -900,7 +900,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	//GAME
 	//gameLoader.Load("Default", scene.GetDrawables());
 	//MAIN MENU
-	gameLoader.Load("Default", scene.GetDrawables());
+	gameLoader.Load("NewTest", scene.GetDrawables());
 	BindDrawables();
 
 	scene.SetCamera(PI_DIV4, float(clientWidth) / float(clientHeight), 0.1f, 10000.0f, 1.0f, 25.0f, {0, 90, 0});
