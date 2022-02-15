@@ -10,7 +10,7 @@ class LevelEditor : public Editor, public ApplicationState
 {
 private:
 	ImGuizmo::OPERATION operation = ImGuizmo::TRANSLATE;
-	std::string sceneName = "Default";
+	std::string sceneName = "NewTest";
 
 	int totalPolygonsLastFrame;
 	int totalPolygonCount;

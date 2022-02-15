@@ -87,7 +87,7 @@ public:
 	{
 		FileSystem::SetProjectDirectory();
 
-		WindowCreator(Window(), GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), L"ARCUS EDITOR", instance);
+		WindowCreator(Window(), GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), L"World Editor", instance);
 
 		//InitWindowed();
 		InitFullscreen();
