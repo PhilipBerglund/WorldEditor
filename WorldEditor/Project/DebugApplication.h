@@ -49,7 +49,7 @@ private:
 
 		graphics = std::make_unique<Graphics>(clientWidth, clientHeight, Window::GetHWND(), false);
 
-		RunLoadingScreen();
+		//RunLoadingScreen();
 
 		shaderData = std::make_unique<ShaderData>();
 		resources = std::make_unique<Resources>();
@@ -89,7 +89,8 @@ public:
 
 		WindowCreator(Window(), GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), L"ARCUS EDITOR", instance);
 
-		InitWindowed();
+		//InitWindowed();
+		InitFullscreen();
 
 		UINT clientWidth = Window::ClientWidth();
 		UINT clientHeight = Window::ClientHeight();
@@ -114,7 +115,7 @@ public:
 		MSG msg = {};
 
 		Window::ActivateCursor();
-		InitFullscreen();
+		//InitFullscreen();
 		currentGameState = new LevelEditor(Window::ClientWidth(), Window::ClientHeight(), Window::GetHWND());
 
 		while (currentState != APPSTATE::EXIT)
