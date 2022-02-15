@@ -779,28 +779,28 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	{
 		AddWindow("TOOLS");
 		auto& window = windows["TOOLS"];
-		window.AddButtonComponent("LOAD SCENE", 120, 30);
-		window.AddButtonComponent("SAVE WORLD", 120, 30, true);
-		window.AddButtonComponent("LOAD FBX", 120, 30);
+		window.AddButtonComponent("Load Scene", 80, 25);
+		window.AddButtonComponent("Save Scene", 80, 25, true);
+		window.AddButtonComponent("Load FBX", 80, 25);
 		window.AddSeperatorComponent();
-		window.AddButtonComponent("CREATE BBOX", 120, 30);
-		window.AddButtonComponent("CREATE BSPHERE", 120, 30, true);
+		window.AddButtonComponent("BBox", 80, 25);
+		window.AddButtonComponent("BSphere", 80, 25, true);
 		window.AddSeperatorComponent();
-		window.AddSliderIntComponent("TERRAIN SUBDIV", 0, 5);
-		window.AddCheckBoxComponent("WIREFRAME", false);
+		window.AddSliderIntComponent("Terrain Subdiv", 0, 5);
+		window.AddCheckBoxComponent("Wireframe", false);
 		window.AddSeperatorComponent();
-		window.AddTextComponent("SHOW:");
-		window.AddCheckBoxComponent("TERRAIN", true);
-		window.AddCheckBoxComponent("WATER", true);
-		window.AddCheckBoxComponent("VOLUMES", true);
-		window.AddCheckBoxComponent("SHADOWS", true);
-		window.AddCheckBoxComponent("SKYBOX", true);
+		window.AddTextComponent("Show:");
+		window.AddCheckBoxComponent("Terrain", true);
+		window.AddCheckBoxComponent("Water", false);
+		window.AddCheckBoxComponent("Volumes", true);
+		window.AddCheckBoxComponent("Shadows", false);
+		window.AddCheckBoxComponent("Skybox", false);
 		window.AddSeperatorComponent();
 		window.AddTextComponent("CULL:");
 		window.AddSliderIntComponent("RENDER DIVIDE", -2000, 2000, -2000, false);
 		window.AddCheckBoxComponent("FLIP DIVIDE", false);
 		window.AddSeperatorComponent();
-		window.AddButtonComponent("EXIT", 120, 30);
+		window.AddButtonComponent("Exit", 80, 25);
 	}
 
 	{
@@ -821,8 +821,8 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.AddSliderFloatComponent("Z-axis", -1, 50, 0, false);
 		window.AddCheckBoxComponent("Uniform scaling", false);
 		window.AddSeperatorComponent();
-		window.AddButtonComponent("Duplicate", 120, 30);
-		window.AddButtonComponent("Delete", 120, 30, true);
+		window.AddButtonComponent("Duplicate", 80, 25);
+		window.AddButtonComponent("Delete", 80, 25, true);
 	}
 
 	{
@@ -843,7 +843,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.AddTextComponent("LIMIT");
 		window.AddCheckBoxComponent("VISUALIZE PERFORMANCE", false);
 		window.AddTextComponent("Take performance snapshot");
-		window.AddButtonComponent("Snapshot", 120, 30);
+		window.AddButtonComponent("Snapshot", 80, 25);
 		window.AddSeperatorComponent();
 		window.AddTextComponent("FRAME TIME");
 		window.AddTextComponent("UI TIME");
@@ -1132,41 +1132,41 @@ APPSTATE LevelEditor::Run()
 
 	{
 		auto& window = windows["TOOLS"];
-		if (window.GetValue<ButtonComponent>("LOAD SCENE"))
+		if (window.GetValue<ButtonComponent>("Load Scene"))
 			LoadScene(FileSystem::LoadFile("SaveData"));
 
-		if (window.GetValue<ButtonComponent>("LOAD FBX"))
+		if (window.GetValue<ButtonComponent>("Load FBX"))
 			Load(FileSystem::LoadFile("Models"));
 
-		if (window.GetValue<ButtonComponent>("CREATE BBOX"))
+		if (window.GetValue<ButtonComponent>("BBox"))
 			CreateBoundingBox();
 
-		if (window.GetValue<ButtonComponent>("CREATE BSPHERE"))
+		if (window.GetValue<ButtonComponent>("BSphere"))
 			CreateBoundingSphere();
 
-		if (window.Changed("WIREFRAME"))
+		if (window.Changed("Wireframe"))
 			Graphics::Inst().ToggleWireframe();
 
-		if (window.Changed("TERRAIN"))
+		if (window.Changed("Terrain"))
 			ShowTerrain();
 
-		if (window.Changed("WATER"))
+		if (window.Changed("Water"))
 			ShowWater();
 
-		if (window.Changed("VOLUMES"))
+		if (window.Changed("Volumes"))
 			ShowVolumes();
 
-		if (window.Changed("SHADOWS"))
+		if (window.Changed("Shadows"))
 			ShowShadows();
 
-		if (window.Changed("SKYBOX"))
+		if (window.Changed("Skybox"))
 			ShowSkybox();
 
-		if (window.Changed("TERRAIN SUBDIV"))
+		if (window.Changed("Terrain Subdiv"))
 		{
 			if (terrain)
 				delete terrain;
-			terrain = new Terrain(window.GetValue<SliderIntComponent>("TERRAIN SUBDIV"));
+			terrain = new Terrain(window.GetValue<SliderIntComponent>("Terrain Subdiv"));
 		}
 
 		if (window.Changed("RENDER DIVIDE"))
@@ -1178,13 +1178,13 @@ APPSTATE LevelEditor::Run()
 			DivideRendering();
 		}
 
-		if (window.GetValue<ButtonComponent>("SAVE WORLD"))
+		if (window.GetValue<ButtonComponent>("Save Scene"))
 		{
 			GameLoader loader;
 			loader.Save(sceneName, scene.GetDrawables());
 		}
 
-		if (window.GetValue<ButtonComponent>("EXIT"))
+		if (window.GetValue<ButtonComponent>("Exit"))
 			return APPSTATE::EXIT;
 	}
 

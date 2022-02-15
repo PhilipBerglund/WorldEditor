@@ -32,6 +32,7 @@ struct TextComponent : public ImGuiWinComponent
 		if (sameLine)
 			ImGui::SameLine();
 		ImGui::Text(value.c_str());
+		//ImGui::SetWindowFontScale(0.9f);
 	}
 };
 

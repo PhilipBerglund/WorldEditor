@@ -29,11 +29,11 @@ private:
 	Water water;
 
 	//CheckBoxStuff
-	bool renderWater = true;
+	bool renderWater = false;
 	bool renderVolumes = true;
 	bool renderTerrain = true;
-	bool renderShadows = true;
-	bool renderSkybox = true;
+	bool renderShadows = false;
+	bool renderSkybox = false;
 	bool renderPerformance = false;
 	bool divideFlipped = false;
 
