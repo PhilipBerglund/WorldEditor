@@ -7,6 +7,7 @@ TerrainRenderer::TerrainRenderer(float tesselationAmount)
 	//BUFFER
 	CreateBuffer(matrixBuf, sizeof(Matrices));
 	CreateBuffer(lightBuf, sizeof(Matrix));
+	CreateBuffer(fogBuf, sizeof(FogData));
 
 	BindBuffer(matrixBuf, Shader::DS);
 
@@ -18,6 +19,7 @@ TerrainRenderer::TerrainRenderer(float tesselationAmount)
 	CreateBuffer(tesselationBuf);
 	UpdateBuffer(tesselationBuf, tesselationAmount);
 	BindBuffer(tesselationBuf, Shader::HS);
+	BindBuffer(fogBuf, Shader::PS, 4);
 
 	if (!LoadShader(hullShader, hs_path))
 		return;
@@ -63,6 +65,7 @@ TerrainRenderer::~TerrainRenderer()
 	geometryShader->Release();
 	pixelShader->Release();
 	inputLayout->Release();
+	fogBuf->Release();
 }
 
 void TerrainRenderer::Render(const Terrain& terrain)
@@ -90,4 +93,14 @@ void TerrainRenderer::Render(const Terrain& terrain)
 
 	//DRAW
 	terrain.Draw();
+}
+
+void TerrainRenderer::UpdateFog(float fStart, float fRange, float fCScale)
+{
+	fogData.start = fStart;
+	fogData.range = fRange;
+	fogData.color = fCScale;
+	UpdateBuffer(fogBuf, fogData);
+	BindBuffer(fogBuf, Shader::PS, 4);
+	Print("Inside Update Fog!");
 }

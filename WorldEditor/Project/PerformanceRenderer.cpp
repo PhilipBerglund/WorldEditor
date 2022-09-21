@@ -48,6 +48,8 @@ PerformanceRenderer::~PerformanceRenderer()
 	pixelShader->Release();
 	inputLayout->Release();
 	depthStencilState->Release();
+	modelMsBuffer->Release();
+	limitBuffer->Release();
 }
 
 void PerformanceRenderer::Render()

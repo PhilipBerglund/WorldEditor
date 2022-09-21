@@ -15,6 +15,15 @@ private:
 		Matrix lightViewPerspective;
 	} matrices;
 
+	ID3D11Buffer* fogBuf = nullptr;
+	struct FogData
+	{
+		float start;
+		float range;
+		float color;
+		float pad;
+	} fogData;
+
 	//SHADER PATHS
 #ifdef _DEBUG
 	const std::string vs_path = "../x64/Debug/ModelVertexShader.cso";
@@ -45,4 +54,5 @@ public:
 	~ModelRenderer();
 
 	virtual void Render() override;
+	void UpdateFog(float fStart, float fRange, float fCScale);
 };

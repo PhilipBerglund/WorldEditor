@@ -441,6 +441,13 @@ void LevelEditor::ShowTerrain()
 	}
 }
 
+void LevelEditor::UpdateFog()
+{
+	MR->UpdateFog(fogStart, fogRange, fogColor);
+	TR->UpdateFog(fogStart, fogRange, fogColor);
+	WR->UpdateFog(fogStart, fogRange, fogColor);
+}
+
 void LevelEditor::ShowShadows()
 {
 	auto& drawables = scene.GetDrawables();
@@ -586,11 +593,6 @@ void LevelEditor::Update()
 
 		}
 	}
-
-	if (Event::KeyIsPressed(VK_SHIFT))
-		scene.GetCamera()->SetSpeedMultiplier(8);
-	else
-		scene.GetCamera()->SetSpeedMultiplier(1);
 
 	if (selectedObject != "") //CHECKS EVERY FRAME, USE CHANGED()?
 	{
@@ -908,6 +910,19 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.SetValue<TextComponent, std::string>("Scene", "To Load a scene, press the 'Load Scene' button.\nTo Save changes to the file, press 'Save World'.\nUse the 'Load FBX' button to import new items.\n\nIf you want to create a new scene, press the 'Load Scene' button. \nIn the file-manager, create a txt-file with the desired name. \nChange the file-extension to '.objs' and select it. \nPress 'Open'.");
 	}	
 
+	{
+		AddWindow("CAMERA");
+		auto& window = windows["CAMERA"];
+		window.AddTextComponent("Fog");
+		window.AddSeperatorComponent();
+		window.AddSliderIntComponent("Range", 1, 10, 1);
+		window.AddSliderIntComponent("Sharpness", 1, 100, 50);
+		window.AddSliderIntComponent("Brightness", 1, 100, 80);
+		window.AddSeperatorComponent();
+		window.AddSliderIntComponent("Camera Speed", 1, 30, 5);
+
+	}
+
 	//LOAD SCENE
 	FBXLoader levelLoader("Models");
 
@@ -933,8 +948,8 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 
 	terrain = new Terrain(2);
 
-
 	UpdatePerformanceLimit();
+	UpdateFog();
 
 	//LoadNodes();
 	//path = new Pathfinding;
@@ -1217,6 +1232,30 @@ APPSTATE LevelEditor::Run()
 					DuplicateVolume();
 			}
 		}
+	}
+
+	{
+		auto& window = windows["CAMERA"];
+		if (window.Changed("Range"))
+		{
+			fogStart = window.GetValue<SliderIntComponent>("Range");
+			UpdateFog();
+		}
+		if (window.Changed("Sharpness"))
+		{
+			fogRange = window.GetValue<SliderIntComponent>("Sharpness");
+			UpdateFog();
+		}
+		if (window.Changed("Brightness"))
+		{
+			fogColor = window.GetValue<SliderIntComponent>("Brightness");
+			UpdateFog();
+		}
+		if (window.Changed("Camera Speed"))
+		{
+			camera->SetSpeedMultiplier(window.GetValue<SliderIntComponent>("Camera Speed"));
+		}
+
 	}
 
 	{

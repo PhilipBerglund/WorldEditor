@@ -8,6 +8,7 @@ WaterRenderer::WaterRenderer(float tesselationAmount)
 	CreateBuffer(lightBuf, sizeof(Matrix));
 	CreateBuffer(timeBuf);
 	CreateBuffer(translationBuf, sizeof(textureTranslation));
+	CreateBuffer(fogBuf, sizeof(FogData));
 
 	//SHADERS
 	std::string byteCode;
@@ -65,6 +66,7 @@ WaterRenderer::~WaterRenderer()
 	geometryShader->Release();
 	pixelShader->Release();
 	inputLayout->Release();
+	fogBuf->Release();
 }
 
 void WaterRenderer::Render()
@@ -89,6 +91,8 @@ void WaterRenderer::Render()
 
 	UpdateBuffer(timeBuf, Time::Get());
 	BindBuffer(timeBuf, Shader::DS, 1);
+
+	BindBuffer(fogBuf, Shader::PS, 4);
 
 
 	UpdateBuffer(translationBuf, translationOffset);
@@ -143,4 +147,14 @@ void WaterRenderer::Render(const Water& water)
 
 	//DRAW
 	water.Draw();
+}
+
+void WaterRenderer::UpdateFog(float fStart, float fRange, float fCScale)
+{
+	fogData.start = fStart;
+	fogData.range = fRange;
+	fogData.color = fCScale;
+	UpdateBuffer(fogBuf, fogData);
+	BindBuffer(fogBuf, Shader::PS, 4);
+	Print("Inside Update Fog!");
 }

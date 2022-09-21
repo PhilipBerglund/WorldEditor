@@ -33,6 +33,14 @@ cbuffer NUM_POINTLIGHTS : register(b3)
     uint numPointlights;
 }
 
+cbuffer FOG_CONTROLS : register(b4)
+{
+    float fogStart;
+    float fogRange;
+    float fogColorScale;
+    float pad;
+}
+
 StructuredBuffer<POINT_LIGHT> lights : register(t9);
 
 float ShadowCalculation(float4 LCP)
@@ -90,11 +98,9 @@ float4 main(PS_INPUT input) : SV_TARGET
     finalLighting.specular = saturate(finalLighting.specular);
     
     //FOG
-    float4 fogColor = float4(0.8f, 0.8f, 0.8f, 1.0f);
-    float fogStart = 100.0f;
-    float fogRange = 2000.0f;
-    float fogDistance = distance(cameraPosition, input.worldPosition);
-    float fogFactor = saturate((fogDistance - fogStart) / fogRange);
+    float4 fogColor = float4(0.01f * fogColorScale, 0.01f * fogColorScale, 0.01f * fogColorScale, 1.0f);
+    float fogDistance = distance(cameraPosition, input.worldPosition.xyz);
+    float fogFactor = saturate((fogDistance - (fogStart * 100)) / (fogRange * 100));
 
     
     float4 color = lerp(t, path, pathTexture.Sample(wrapSampler, input.texCoords).x);

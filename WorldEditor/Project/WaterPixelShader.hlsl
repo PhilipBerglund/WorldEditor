@@ -46,6 +46,14 @@ cbuffer textureTranslation : register (b10)
     float offset;
 }
 
+cbuffer FOG_CONTROLS : register(b4)
+{
+    float fogStart;
+    float fogRange;
+    float fogColorScale;
+    float pad;
+}
+
 float4 main(PS_INPUT input) : SV_TARGET
 {
     PS_OUTPUT output;
@@ -75,11 +83,9 @@ float4 main(PS_INPUT input) : SV_TARGET
     input.normal = normalize(mul(normalMaps, texSpace));
 
     //FOG
-    float4 fogColor = float4(0.8f, 0.8f, 0.8f, 1.0f);
-    float fogStart = 100.0f;
-    float fogRange = 2000.0f;
-    float fogDistance = distance(cameraPosition, input.worldPosition);
-    float fogFactor = saturate((fogDistance - fogStart) / fogRange);
+    float4 fogColor = float4(0.01f * fogColorScale, 0.01f * fogColorScale, 0.01f * fogColorScale, 1.0f);
+    float fogDistance = distance(cameraPosition, input.worldPosition.xyz);
+    float fogFactor = saturate((fogDistance - (fogStart * 100)) / (fogRange * 100));
 
     float3 finalColor;
     finalColor = color * directionalLight.lightColor;

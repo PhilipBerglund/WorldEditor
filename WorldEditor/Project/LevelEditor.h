@@ -27,6 +27,9 @@ private:
 	std::map<std::string, std::shared_ptr<BoundingSphere>> pickBoxes;
 	Terrain* terrain;
 	Water water;
+	float fogRange = 5;
+	float fogStart = 30;
+	float fogColor = 80;
 
 	//CheckBoxStuff
 	bool renderWater = false;
@@ -75,6 +78,7 @@ private:
 	void FlipRenderingDivider();
 	void ShowVolumes();
 	void ShowTerrain();
+	void UpdateFog();
 
 private:
 	std::ofstream out;

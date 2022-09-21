@@ -21,6 +21,15 @@ private:
 		float padding3;
 	}translationOffset;
 
+	ID3D11Buffer* fogBuf = nullptr;
+	struct FogData
+	{
+		float start;
+		float range;
+		float color;
+		float pad;
+	} fogData;
+
 	//SHADER PATHS
 #ifdef _DEBUG
 	const std::string vs_path = "../x64/Debug/WaterVertexShader.cso";
@@ -59,4 +68,5 @@ public:
 
 	virtual void Render() override;
 	void Render(const Water& water);
+	void UpdateFog(float fStart, float fRange, float fCScale);
 };

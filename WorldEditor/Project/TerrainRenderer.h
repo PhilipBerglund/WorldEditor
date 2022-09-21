@@ -17,6 +17,15 @@ private:
 
 	ID3D11Buffer* tesselationBuf = nullptr;
 
+	ID3D11Buffer* fogBuf = nullptr;
+	struct FogData
+	{
+		float start;
+		float range;
+		float color;
+		float pad;
+	} fogData;
+
 	//SHADER PATHS
 #ifdef _DEBUG
 	const std::string vs_path = "../x64/Debug/TerrainVertexShader.cso";
@@ -59,4 +68,5 @@ public:
 	~TerrainRenderer();
 
 	void Render(const Terrain& terrain);
+	void UpdateFog(float fStart, float fRange, float fCScale);
 };

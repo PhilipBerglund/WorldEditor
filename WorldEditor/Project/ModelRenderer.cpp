@@ -6,6 +6,7 @@ ModelRenderer::ModelRenderer(bool isLit)
 {
 	//BUFFER
 	CreateBuffer(matricesBuf, sizeof(Matrices));
+	CreateBuffer(fogBuf, sizeof(FogData));
 
 
 	//SHADERS
@@ -57,6 +58,7 @@ ModelRenderer::~ModelRenderer()
 	vertexShader->Release();
 	pixelShader->Release();
 	inputLayout->Release();
+	fogBuf->Release();
 }
 
 void ModelRenderer::Render()
@@ -91,6 +93,7 @@ void ModelRenderer::Render()
 
 		UpdateBuffer(matricesBuf, matrices);
 		BindBuffer(matricesBuf);
+		BindBuffer(fogBuf, Shader::PS, 4);
 
 
 		if (isLit)
@@ -99,4 +102,14 @@ void ModelRenderer::Render()
 			model->Draw(true, false);
 		model->SetTTD(timer.DeltaTime());
 	}
+}
+
+void ModelRenderer::UpdateFog(float fStart, float fRange, float fCScale)
+{
+	fogData.start = fStart;
+	fogData.range = fRange;
+	fogData.color = fCScale;
+	UpdateBuffer(fogBuf, fogData);
+	BindBuffer(fogBuf, Shader::PS, 4);
+	Print("Inside Update Fog!");
 }

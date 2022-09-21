@@ -14,6 +14,14 @@ cbuffer CAMERA : register(b2)
     float3 cameraPosition;
 }
 
+cbuffer FOG_CONTROLS : register(b4)
+{
+    float fogStart;
+    float fogRange;
+    float fogColorScale;
+    float pad;
+}
+
 struct PS_INPUT
 {
     float4 position : SV_POSITION;
@@ -83,11 +91,9 @@ float4 main(PS_INPUT input) : SV_TARGET
                                 (pResult.diffuse * 5 + pResult.specular) + globalAmbient + ambient;
     
     //FOG
-	float4 fogColor = float4(0.8f, 0.8f, 0.8f, 1.0f);
-	float fogStart = 100.0f;
-	float fogRange = 2000.0f;
+    float4 fogColor = float4(0.01f * fogColorScale, 0.01f * fogColorScale, 0.01f * fogColorScale, 1.0f);
 	float fogDistance = distance(cameraPosition, input.worldPosition.xyz);
-	float fogFactor = saturate((fogDistance - fogStart) / fogRange);
+    float fogFactor = saturate((fogDistance - (fogStart * 100)) / (fogRange * 100));
 
     //RESULT
     const float4 finalColor = lerp((T * float4(pResult.color) * (saturate(finalLighting))), fogColor, fogFactor);
