@@ -1243,7 +1243,7 @@ APPSTATE LevelEditor::Run()
 		}
 		if (window.Changed("Density"))
 		{
-			fogRange = window.GetValue<SliderIntComponent>("Sharpness");
+			fogRange = window.GetValue<SliderIntComponent>("Density");
 			UpdateFog();
 		}
 		if (window.Changed("Brightness"))
