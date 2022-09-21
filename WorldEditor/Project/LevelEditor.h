@@ -27,8 +27,8 @@ private:
 	std::map<std::string, std::shared_ptr<BoundingSphere>> pickBoxes;
 	Terrain* terrain;
 	Water water;
+	float fogDensity = 50;
 	float fogRange = 5;
-	float fogStart = 30;
 	float fogColor = 80;
 
 	//CheckBoxStuff

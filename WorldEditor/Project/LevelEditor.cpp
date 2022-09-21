@@ -443,9 +443,9 @@ void LevelEditor::ShowTerrain()
 
 void LevelEditor::UpdateFog()
 {
-	MR->UpdateFog(fogStart, fogRange, fogColor);
-	TR->UpdateFog(fogStart, fogRange, fogColor);
-	WR->UpdateFog(fogStart, fogRange, fogColor);
+	MR->UpdateFog(fogRange, fogDensity, fogColor);
+	TR->UpdateFog(fogRange, fogDensity, fogColor);
+	WR->UpdateFog(fogRange, fogDensity, fogColor);
 }
 
 void LevelEditor::ShowShadows()
@@ -915,7 +915,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		auto& window = windows["CAMERA"];
 		window.AddTextComponent("Fog");
 		window.AddSeperatorComponent();
-		window.AddSliderIntComponent("Range", 1, 10, 1);
+		window.AddSliderIntComponent("Range", 1, 10, 5);
 		window.AddSliderIntComponent("Density", 1, 100, 50);
 		window.AddSliderIntComponent("Brightness", 1, 100, 80);
 		window.AddSeperatorComponent();
@@ -1238,12 +1238,12 @@ APPSTATE LevelEditor::Run()
 		auto& window = windows["CAMERA"];
 		if (window.Changed("Range"))
 		{
-			fogStart = window.GetValue<SliderIntComponent>("Range");
+			fogRange = window.GetValue<SliderIntComponent>("Range");
 			UpdateFog();
 		}
 		if (window.Changed("Density"))
 		{
-			fogRange = window.GetValue<SliderIntComponent>("Density");
+			fogDensity = window.GetValue<SliderIntComponent>("Density");
 			UpdateFog();
 		}
 		if (window.Changed("Brightness"))
