@@ -405,10 +405,25 @@ void LevelEditor::ShowVolumes()
 	{
 		renderVolumes = false;
 		changed = true;
+		auto drawables = scene.GetDrawables();
+		for (auto& [drawableName, drawable] : drawables)
+		{
+			auto volume = std::dynamic_pointer_cast<BoundingVolume>(drawable);
+			if(volume)
+				IDR->Unbind(volume);
+		}
+		
 	}
 	if (!renderVolumes && !changed)
 	{
 		renderVolumes = true;
+		auto drawables = scene.GetDrawables();
+		for (auto& [drawableName, drawable] : drawables)
+		{
+			auto volume = std::dynamic_pointer_cast<BoundingVolume>(drawable);
+			if(volume)
+				IDR->Bind(volume);
+		}
 	}
 }
 
@@ -763,14 +778,14 @@ void LevelEditor::Render()
 LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	:water(5000)
 {
-
+	std::string skyboxFolder = "Default";
 	RND.InitModelRenderer(false);
 	RND.InitIDRenderer();
 	RND.InitTerrainRenderer();
 	RND.InitShadowRenderer();
 	RND.InitWaterRenderer();
 	RND.InitVolumeRenderer();
-	RND.InitSkyBoxRenderer();
+	RND.InitSkyBoxRenderer(skyboxFolder, skyboxFolder);
 	RND.InitPerformanceRenderer();
 
 	SBR->PullDayNightSlider(1);
@@ -793,7 +808,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.AddCheckBoxComponent("Terrain", true);
 		window.AddCheckBoxComponent("Water", false);
 		window.AddCheckBoxComponent("Volumes", true);
-		window.AddCheckBoxComponent("Shadows", false);
+		window.AddCheckBoxComponent("Shadows", true);
 		window.AddCheckBoxComponent("Skybox", false);
 		window.AddSeperatorComponent();
 		window.AddTextComponent("CULL:");
@@ -903,7 +918,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	gameLoader.Load("NewTest", scene.GetDrawables());
 	BindDrawables();
 
-	scene.SetCamera(PI_DIV4, float(clientWidth) / float(clientHeight), 0.1f, 10000.0f, 1.0f, 25.0f, {0, 90, 0});
+	scene.SetCamera(PI_DIV4, float(clientWidth) / float(clientHeight), 0.1f, 10000.0f, 1.0f, 25.0f, {0, 500, -1500});
 	scene.SetDirectionalLight(1000, { 1, 1, 1, 1 }, 4, 4);
 
 	InitCamera(scene.GetCamera());

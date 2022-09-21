@@ -32,7 +32,7 @@ private:
 	bool renderWater = false;
 	bool renderVolumes = true;
 	bool renderTerrain = true;
-	bool renderShadows = false;
+	bool renderShadows = true;
 	bool renderSkybox = false;
 	bool renderPerformance = false;
 	bool divideFlipped = false;
