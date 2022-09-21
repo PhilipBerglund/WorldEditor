@@ -916,7 +916,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.AddTextComponent("Fog");
 		window.AddSeperatorComponent();
 		window.AddSliderIntComponent("Range", 1, 10, 1);
-		window.AddSliderIntComponent("Sharpness", 1, 100, 50);
+		window.AddSliderIntComponent("Density", 1, 100, 50);
 		window.AddSliderIntComponent("Brightness", 1, 100, 80);
 		window.AddSeperatorComponent();
 		window.AddSliderIntComponent("Camera Speed", 1, 30, 5);
@@ -1241,7 +1241,7 @@ APPSTATE LevelEditor::Run()
 			fogStart = window.GetValue<SliderIntComponent>("Range");
 			UpdateFog();
 		}
-		if (window.Changed("Sharpness"))
+		if (window.Changed("Density"))
 		{
 			fogRange = window.GetValue<SliderIntComponent>("Sharpness");
 			UpdateFog();
