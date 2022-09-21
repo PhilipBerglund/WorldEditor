@@ -913,13 +913,13 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	{
 		AddWindow("CAMERA");
 		auto& window = windows["CAMERA"];
-		window.AddTextComponent("Fog");
+		window.AddSliderIntComponent("Camera Speed", 1, 15, 10);
 		window.AddSeperatorComponent();
+		window.AddTextComponent("Fog");
 		window.AddSliderIntComponent("Range", 1, 10, 5);
 		window.AddSliderIntComponent("Density", 1, 100, 50);
 		window.AddSliderIntComponent("Brightness", 1, 100, 80);
-		window.AddSeperatorComponent();
-		window.AddSliderIntComponent("Camera Speed", 1, 15, 10);
+
 
 	}
 
