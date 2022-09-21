@@ -919,7 +919,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 		window.AddSliderIntComponent("Density", 1, 100, 50);
 		window.AddSliderIntComponent("Brightness", 1, 100, 80);
 		window.AddSeperatorComponent();
-		window.AddSliderIntComponent("Camera Speed", 1, 30, 5);
+		window.AddSliderIntComponent("Camera Speed", 1, 15, 10);
 
 	}
 
@@ -937,6 +937,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 	scene.SetDirectionalLight(1000, { 1, 1, 1, 1 }, 4, 4);
 
 	InitCamera(scene.GetCamera());
+	camera->SetSpeedMultiplier(20);
 
 	//CLIENT INFORMATION (PICKING) TO BE REMOVED?
 	wWidth = clientWidth;
@@ -948,6 +949,7 @@ LevelEditor::LevelEditor(UINT clientWidth, UINT clientHeight, HWND window)
 
 	terrain = new Terrain(2);
 
+	TR->UpdateTesselation(63);
 	UpdatePerformanceLimit();
 	UpdateFog();
 
@@ -1253,7 +1255,7 @@ APPSTATE LevelEditor::Run()
 		}
 		if (window.Changed("Camera Speed"))
 		{
-			camera->SetSpeedMultiplier(window.GetValue<SliderIntComponent>("Camera Speed"));
+			camera->SetSpeedMultiplier(window.GetValue<SliderIntComponent>("Camera Speed") * 2);
 		}
 
 	}

@@ -5,12 +5,14 @@ struct DS_INPUT
 {
     float4 position : SV_POSITION;
     float2 texCoords : TEXTURECOORDS;
+    float4 normal : NORMAL;
 };
 
 struct DS_OUTPUT
 {
     float4 position : SV_POSITION;
     float2 texCoords : TEXTURECOORDS;
+    float4 normal : NORMAL;
     float3 worldPosition : WORLDPOSITION;
 	float4 lightClipPosition : LIGHTPOSITION;
 };
@@ -39,6 +41,7 @@ DS_OUTPUT main(
     //BARYCENTRIC COORDINATES
     output.position = patch[0].position * domain.x + patch[1].position * domain.y + patch[2].position * domain.z;
     output.texCoords = patch[0].texCoords * domain.x + patch[1].texCoords * domain.y + patch[2].texCoords * domain.z;
+    output.normal = patch[0].normal * domain.x + patch[1].normal * domain.y + patch[2].normal * domain.z;
     
 	//DISPLACEMENT
     float h = displacementTexture.SampleLevel(wrapSampler, output.texCoords, 0).r * 255 * 2.0f - 100.0f;

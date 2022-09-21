@@ -11,6 +11,7 @@ struct DynamicPlane
 	{
 		Vector3 position;
 		Vector2 texCoords;
+		Vector3 normal;
 	};
 
 	UINT size = 0;

@@ -11,6 +11,7 @@ DynamicPlane::DynamicPlane(UINT subdivisions, UINT size)
 
 	Vector3 position;
 	Vector2 texCoords;
+	Vector3 normal;
 	std::vector<Vertex> vertices;
 
 	for (UINT i = 0; i < cells + 1; ++i)
@@ -19,8 +20,9 @@ DynamicPlane::DynamicPlane(UINT subdivisions, UINT size)
 		{
 			position = { triSize * i - (size / 2) , 0, triSize * j - (size / 2) };
 			texCoords = { texSize * i + (1.0f / size), texSize * j };
+			normal = { 0.0f, 1.0f, 0.0f };
 
-			vertices.emplace_back(Vertex{ position, texCoords });
+			vertices.emplace_back(Vertex{ position, texCoords, normal });
 		}
 	}
 

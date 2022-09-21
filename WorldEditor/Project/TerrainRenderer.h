@@ -64,9 +64,10 @@ private:
 	//INPUT LAYOUT
 	ID3D11InputLayout* inputLayout = nullptr;
 public:
-	TerrainRenderer(float tesselationAmount = 63);
+	TerrainRenderer(float tesselationAmount = 100);
 	~TerrainRenderer();
 
 	void Render(const Terrain& terrain);
 	void UpdateFog(float fStart, float fRange, float fCScale);
+	void UpdateTesselation(float tessAmount);
 };
